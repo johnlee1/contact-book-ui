@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact Book</title>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+    
+    <body>
+
+        <!-- main body of application -->
+        <div class="container" id="app">
+
+            {{ message }}
+
+            <ul>
+                <contact-item v-for="contact in contacts[0]" v-bind:contact="contact"></contact-item>
+            </ul>
+            
+        </div>
+
+        <script src="./node_modules/vue/dist/vue.js"></script>
+        <script src="./node_modules/vue-resource/dist/vue-resource.js"></script>
+        <script src="./app.js"></script>
+    </body>
+</html>
