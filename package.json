@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.4",
     "vue": "^2.0.1",
     "vue-resource": "^1.0.3"
   }
