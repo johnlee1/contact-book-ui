@@ -4,8 +4,31 @@ let apiURL = 'apiURL';
 // set auth header for http requests
 Vue.http.headers.common['X-Auth-Token'] = 'X-Auth-Token';
 
+// register modal component
+Vue.component('modal', {
+    template: '#modal-template',
+    props: ['fname','lname','cname','address','city','state','zip','phone','workphone','email','website'],
+    methods: {
+        addContact: function() {
+            body = {"first_name": this.fname,
+                      "last_name": this.lname,
+                      "company_name": this.cname,
+                      "address": this.address,
+                      "city": this.city,
+                      "state": this.state,
+                      "zip": this.zip,
+                      "phone": this.phone,
+                      "work_phone": this.workphone,
+                      "email": this.email,
+                      "url": this.website};
+            this.$http.post(apiURL, body).then((result) => {
+                vm.getContacts();
+            });
+        },
+    }
+})
 
-new Vue({
+var vm = new Vue({
 
     el: '#app',
 
@@ -13,7 +36,8 @@ new Vue({
         fullContacts: ["fullContacts"],
         searchContacts: ["searchContacts"],
         showId: -1,
-        query: ''
+        query: '',
+        showModal: false,
     },
 
     created: function() {
@@ -21,7 +45,7 @@ new Vue({
     },
 
     watch: {
-        // whenever query changes, this function will run
+        // whenever search query changes, this function will run
         query: function (newQuery) {
             this.search(newQuery)
         }

@@ -8,10 +8,101 @@
     
     <body>
 
+        <!-- template for the modal component -->
+        <script type="text/x-template" id="modal-template">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-container">
+                            <div class="modal-header">
+                                <slot name="header">
+                                    Add Contact
+                                </slot>
+                            </div>
+                            <div class="modal-body">
+                                <slot name="body">
+                                    <form >
+                                        <div class="form-group row">
+                                            <div class="col-xs-4">
+                                                <label for="example-text-input" class="col-form-label">First Name</label>
+                                                <input class="form-control" type="text" placeholder="John" v-model="fname">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label for="example-text-input" class="col-form-label">Last Name</label>
+                                                <input class="form-control" type="text" placeholder="Doe" v-model="lname">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label for="example-text-input" class="col-form-label">Company Name</label>
+                                                <input class="form-control" type="text" placeholder="Tech Company" v-model="cname">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Address</label>
+                                                <input class="form-control" type="text" placeholder="100 Maple Road" v-model="address">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">City</label>
+                                                <input class="form-control" type="text" placeholder="Chicago" v-model="city">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">State</label>
+                                                <input class="form-control" type="text" placeholder="Illinois" v-model="state">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Zip</label>
+                                                <input class="form-control" type="text" placeholder="12345" v-model="zip">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Phone</label>
+                                                <input class="form-control" type="text" placeholder="444-444-4444" v-model="phone">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Work Phone</label>
+                                                <input class="form-control" type="text" placeholder="555-555-5555" v-model="workphone">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Email</label>
+                                                <input class="form-control" type="text" placeholder="john@example.com" v-model="email">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Website</label>
+                                                <input class="form-control" type="text" placeholder="www.example.com" v-model="website">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </slot>
+                            </div>
+                            <div class="modal-footer">
+                                <slot name="footer">
+                                    <button class="btn btn-secondary modal-default-button" @click="addContact('what'); $emit('close')">
+                                        Submit
+                                    </button>
+                                    <button class="btn btn-secondary modal-default-button" @click="$emit('close')">
+                                        Cancel
+                                    </button>
+                                </slot>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </script>
+
         <!-- main body of application -->
         <div class="container" id="app">
 
-            <h1 class="text-xs-center topheader">Contacts</h1>
+            <div class="col-md-8 offset-md-2 topheader">
+                <h1 class="text-xs-left">Contacts</h1>
+                <button class="btn btn-secondary" id="show-modal" @click="showModal = true">Add Contact</button>
+                <!-- use the modal component, pass in the prop -->
+                <modal v-if="showModal" @close="showModal = false">
+                <!-- you can use custom content here to overwrite default content -->
+                    <h3 slot="header">Add Contact</h3>
+                </modal>
+            </div>
 
             <form>
                 <div class="form-group col-md-4 offset-md-4 searchbar">
