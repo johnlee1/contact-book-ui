@@ -2,7 +2,8 @@
 <html>
     <head>
         <title>Contact Book</title>
-        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     
     <body>
@@ -10,11 +11,36 @@
         <!-- main body of application -->
         <div class="container" id="app">
 
-            {{ message }}
+            <h1 class="text-xs-center topheader">Contacts</h1>
 
-            <ul>
-                <contact-item v-for="contact in contacts[0]" v-bind:contact="contact"></contact-item>
-            </ul>
+            <form>
+                <div class="form-group col-md-4 offset-md-4 searchbar">
+                    <input type="text" class="form-control" id="search" v-model="query">
+                </div>
+            </form>
+
+            <div class="col-md-8 offset-md-2">
+                <div class="card" v-for="contact in searchContacts[0]">
+                    <ul class="list-group list-group-flush" v-on:click="showContact(showId,contact.id)">
+                        <div class="list-group-item">
+                            {{ contact.first_name }} {{ contact.last_name }} 
+                            <transition name="fade">
+                                <div v-if="showId == contact.id">
+                                    Company: {{ contact.company_name }} <br>
+                                    Address: {{ contact.address }} <br>
+                                    City: {{ contact.city }} <br>
+                                    State: {{ contact.state }} <br>
+                                    Zip: {{ contact.zip }} <br>
+                                    Phone: {{ contact.phone }} <br>
+                                    Work Phone: {{ contact.work_phone }} <br>
+                                    Email: {{ contact.email }} <br>
+                                    Website: {{ contact.url }} <br>
+                                </div>
+                            </transition>
+                        </div>
+                    </ul>
+                </div>
+            </div>
             
         </div>
 
