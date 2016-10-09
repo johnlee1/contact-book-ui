@@ -5,28 +5,34 @@ let apiURL = 'apiURL';
 Vue.http.headers.common['X-Auth-Token'] = 'X-Auth-Token';
 
 // register modal component
-Vue.component('modal', {
-    template: '#modal-template',
-    props: ['fname','lname','cname','address','city','state','zip','phone','workphone','email','website'],
-    methods: {
-        addContact: function() {
-            body = {"first_name": this.fname,
-                      "last_name": this.lname,
-                      "company_name": this.cname,
-                      "address": this.address,
-                      "city": this.city,
-                      "state": this.state,
-                      "zip": this.zip,
-                      "phone": this.phone,
-                      "work_phone": this.workphone,
-                      "email": this.email,
-                      "url": this.website};
-            this.$http.post(apiURL, body).then((result) => {
-                vm.getContacts();
-            });
-        },
-    }
+// Vue.component('modal', {
+//     template: '#modal-template',
+//     props: ['fname','lname','cname','address','city','state','zip','phone','workphone','email','website'],
+//     methods: {
+//         addContact: function() {
+//             body = {"first_name": this.fname,
+//                     "last_name": this.lname,
+//                     "company_name": this.cname,
+//                     "address": this.address,
+//                     "city": this.city,
+//                     "state": this.state,
+//                     "zip": this.zip,
+//                     "phone": this.phone,
+//                     "work_phone": this.workphone,
+//                     "email": this.email,
+//                     "url": this.website};
+//             this.$http.post(apiURL, body).then((result) => {
+//                 vm.getContacts();
+//             });
+//         },
+//     }
+// })
+
+// register modal component
+Vue.component('delete-modal', {
+  template: '#delete-modal-template'
 })
+
 
 var vm = new Vue({
 
@@ -38,15 +44,26 @@ var vm = new Vue({
         showId: -1,
         query: '',
         showModal: false,
+        modalConfig: {
+            show: false,
+            id: null
+        },
+        deleteId: -1
     },
 
     created: function() {
         this.getContacts();
     },
 
+    computed: {
+        showingDeleteModal: function(id) {
+            return this.modalConfig.show && this.modalConfig.id == id;
+        }
+    },
+
     watch: {
         // whenever search query changes, this function will run
-        query: function (newQuery) {
+        query: function(newQuery) {
             this.search(newQuery)
         }
     },
@@ -68,7 +85,7 @@ var vm = new Vue({
             });
         },
 
-        search: function (query) {
+        search: function(query) {
                 contacts = [];
                 for (i=0; i<this.fullContacts[0].length;i++) {
                     contact = JSON.stringify(this.fullContacts[0][i]).toLowerCase();
@@ -77,8 +94,14 @@ var vm = new Vue({
                     }
                 }
                 this.searchContacts = [contacts];
-            }
-        
+        },
+
+        showDeleteModal: function(id){
+            console.log(id);
+            this.modalConfig.id = id;
+            this.modalConfig.show = true;
+            this.deleteId = id;
+        }
     }
 
 })

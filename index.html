@@ -2,14 +2,15 @@
 <html>
     <head>
         <title>Contact Book</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous"> -->
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     
     <body>
 
-        <!-- template for the modal component -->
-        <script type="text/x-template" id="modal-template">
+        <!-- template for the add contact modal component -->
+<!--         <script type="text/x-template" id="modal-template">
             <transition name="modal">
                 <div class="modal-mask">
                     <div class="modal-wrapper">
@@ -77,10 +78,10 @@
                             </div>
                             <div class="modal-footer">
                                 <slot name="footer">
-                                    <button class="btn btn-secondary modal-default-button" @click="addContact('what'); $emit('close')">
+                                    <button class="btn btn-default modal-default-button" @click="addContact(); $emit('close')">
                                         Submit
                                     </button>
-                                    <button class="btn btn-secondary modal-default-button" @click="$emit('close')">
+                                    <button class="btn btn-default modal-default-button" @click="$emit('close')">
                                         Cancel
                                     </button>
                                 </slot>
@@ -89,32 +90,78 @@
                     </div>
                 </div>
             </transition>
+        </script> -->
+
+        <!-- template for the modal component -->
+        <script type="text/x-template" id="delete-modal-template">
+          <transition name="delete-modal">
+            <div class="modal-mask">
+              <div class="modal-wrapper">
+                <div class="modal-container">
+
+                  <div class="modal-header">
+                    <slot name="header">
+                      default header
+                    </slot>
+                  </div>
+
+                  <div class="modal-body">
+                    <slot name="body">
+                      default body
+                    </slot>
+                  </div>
+
+                  <div class="modal-footer">
+                    <slot name="footer">
+                      default footer
+                      <button class="modal-default-button" @click="$emit('close')">
+                        OK
+                      </button>
+                    </slot>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </transition>
         </script>
 
         <!-- main body of application -->
         <div class="container" id="app">
 
-            <div class="col-md-8 offset-md-2 topheader">
+            <div class="col-md-6 col-md-offset-3 topheader">
                 <h1 class="text-xs-left">Contacts</h1>
-                <button class="btn btn-secondary" id="show-modal" @click="showModal = true">Add Contact</button>
+                <button class="btn btn-default" id="show-modal" @click="showModal = true">Add Contact</button>
                 <!-- use the modal component, pass in the prop -->
                 <modal v-if="showModal" @close="showModal = false">
-                <!-- you can use custom content here to overwrite default content -->
+                    <!-- you can use custom content here to overwrite default content -->
                     <h3 slot="header">Add Contact</h3>
                 </modal>
             </div>
 
             <form>
-                <div class="form-group col-md-4 offset-md-4 searchbar">
+                <div class="form-group col-md-2 col-md-offset-5 searchbar">
                     <input type="text" class="form-control" id="search" v-model="query">
                 </div>
             </form>
 
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-6 col-md-offset-3 contacts">
                 <div class="card" v-for="contact in searchContacts[0]">
                     <ul class="list-group list-group-flush" v-on:click="showContact(showId,contact.id)">
                         <div class="list-group-item">
                             {{ contact.first_name }} {{ contact.last_name }} 
+                            <button type="button" class="btn btn-default btn-xs pull-right" aria-label="Left Align" id="contact.id" @click="showDeleteModal(contact.id)">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button> 
+                                <delete-modal v-show="deleteId == contact.id" @close="deleteId = -1">
+                                    <!--
+                                      you can use custom content here to overwrite
+                                      default content
+                                    -->
+                                    <h3 slot="header">{{ contact.id }}</h3>
+                                </delete-modal>
+                            <button type="button" class="btn btn-default btn-xs pull-right" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
                             <transition name="fade">
                                 <div v-if="showId == contact.id">
                                     Company: {{ contact.company_name }} <br>
