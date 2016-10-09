@@ -3,14 +3,13 @@
     <head>
         <title>Contact Book</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!--         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous"> -->
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     
     <body>
 
         <!-- template for the add contact modal component -->
-<!--         <script type="text/x-template" id="modal-template">
+        <script type="text/x-template" id="modal-template">
             <transition name="modal">
                 <div class="modal-mask">
                     <div class="modal-wrapper">
@@ -44,11 +43,11 @@
                                             </div>
                                             <div class="col-xs-3">
                                                 <label for="example-text-input" class="col-form-label">City</label>
-                                                <input class="form-control" type="text" placeholder="Chicago" v-model="city">
+                                                <input class="form-control" type="text" placeholder="Florence" v-model="city">
                                             </div>
                                             <div class="col-xs-3">
                                                 <label for="example-text-input" class="col-form-label">State</label>
-                                                <input class="form-control" type="text" placeholder="Illinois" v-model="state">
+                                                <input class="form-control" type="text" placeholder="South Carolina" v-model="state">
                                             </div>
                                             <div class="col-xs-3">
                                                 <label for="example-text-input" class="col-form-label">Zip</label>
@@ -90,94 +89,199 @@
                     </div>
                 </div>
             </transition>
-        </script> -->
+        </script> 
 
-        <!-- template for the modal component -->
-        <script type="text/x-template" id="delete-modal-template">
-          <transition name="delete-modal">
-            <div class="modal-mask">
-              <div class="modal-wrapper">
-                <div class="modal-container">
+        <!-- template for the update contact modal component -->
+        <script type="text/x-template" id="update-modal-template">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-container">
+                            <div class="modal-header">
+                                <slot name="header">
+                                    Update Contact
+                                </slot>
+                            </div>
+                            <div class="modal-body">
+                                <slot name="body">
+                                    <form >
+                                        <div class="form-group row">
+                                            <div class="col-xs-4">
+                                                <label for="example-text-input" class="col-form-label">First Name</label>
+                                                <input class="form-control" type="text" placeholder="John" v-model="contact.first_name">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label for="example-text-input" class="col-form-label">Last Name</label>
+                                                <input class="form-control" type="text" placeholder="Doe" v-model="contact.last_name">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label for="example-text-input" class="col-form-label">Company Name</label>
+                                                <input class="form-control" type="text" placeholder="Tech Company" v-model="contact.company_name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Address</label>
+                                                <input class="form-control" type="text" placeholder="100 Maple Road" v-model="contact.address">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">City</label>
+                                                <input class="form-control" type="text" placeholder="Florence" v-model="contact.city">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">State</label>
+                                                <input class="form-control" type="text" placeholder="South Carolina" v-model="contact.state">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Zip</label>
+                                                <input class="form-control" type="text" placeholder="12345" v-model="contact.zip">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Phone</label>
+                                                <input class="form-control" type="text" placeholder="444-444-4444" v-model="contact.phone">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Work Phone</label>
+                                                <input class="form-control" type="text" placeholder="555-555-5555" v-model="contact.work_phone">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Email</label>
+                                                <input class="form-control" type="text" placeholder="john@example.com" v-model="contact.email">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="example-text-input" class="col-form-label">Website</label>
+                                                <input class="form-control" type="text" placeholder="www.example.com" v-model="contact.url">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </slot>
+                            </div>
+                            <div class="modal-footer">
+                                <slot name="footer">
+                                    <button class="btn btn-default modal-default-button" @click="updateContact(); $emit('close')">
+                                        Update
+                                    </button>
+                                    <button class="btn btn-default modal-default-button" @click="$emit('close')">
+                                        Cancel
+                                    </button>
+                                </slot>
+                            </div>
 
-                  <div class="modal-header">
-                    <slot name="header">
-                      default header
-                    </slot>
-                  </div>
-
-                  <div class="modal-body">
-                    <slot name="body">
-                      default body
-                    </slot>
-                  </div>
-
-                  <div class="modal-footer">
-                    <slot name="footer">
-                      default footer
-                      <button class="modal-default-button" @click="$emit('close')">
-                        OK
-                      </button>
-                    </slot>
-                  </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </transition>
+            </transition>
+        </script>
+
+        <!-- template for the delete contact modal component -->
+        <script type="text/x-template" id="delete-modal-template">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-container">
+                            <div class="modal-header">
+                                <slot name="header">
+                                    Delete Contact
+                                </slot>
+                            </div>
+                            <div class="modal-body">
+                                <slot name="body">
+                                </slot>
+                            </div>
+                            <div class="modal-footer">
+                                <slot name="footer">
+                                    <button class="btn btn-danger modal-default-button" @click="deleteContact(); $emit('close')">
+                                        Delete
+                                    </button>
+                                    <button class="btn btn-default modal-default-button" @click="$emit('close')">
+                                        Cancel
+                                    </button>
+                                </slot>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </transition>
         </script>
 
         <!-- main body of application -->
         <div class="container" id="app">
 
-            <div class="col-md-6 col-md-offset-3 topheader">
-                <h1 class="text-xs-left">Contacts</h1>
-                <button class="btn btn-default" id="show-modal" @click="showModal = true">Add Contact</button>
-                <!-- use the modal component, pass in the prop -->
-                <modal v-if="showModal" @close="showModal = false">
-                    <!-- you can use custom content here to overwrite default content -->
-                    <h3 slot="header">Add Contact</h3>
-                </modal>
+            <!-- title + add contact button -->
+            <div class="col-md-10 col-md-offset-1 topHeader">
+                <h1 class="text-xs-left">Contact Book</h1>
             </div>
 
-            <form>
-                <div class="form-group col-md-2 col-md-offset-5 searchbar">
-                    <input type="text" class="form-control" id="search" v-model="query">
-                </div>
-            </form>
+            <div class="col-md-10 col-md-offset-1 addContactButton">
+                <button class="btn btn-default btn-sm" @click="showAddModal = true">Add Contact</button>
+                <modal v-if="showAddModal" @close="showAddModal = false"></modal>
+            </div>
 
-            <div class="col-md-6 col-md-offset-3 contacts">
+            <!-- search box -->
+            <div class="col-md-3 col-md-offset-1 row searchbar">
+                <input type="text" class="form-control" id="search" placeholder="search by keyword" v-model="query">
+            </div>
+
+            <!-- this div is just for spacing purposes -->
+            <div class="col-md-10 col-md-offset-2"></div>
+
+            <!-- list of contacts -->
+            <div class="col-md-3 col-md-offset-1 contacts">
                 <div class="card" v-for="contact in searchContacts[0]">
-                    <ul class="list-group list-group-flush" v-on:click="showContact(showId,contact.id)">
-                        <div class="list-group-item">
+                    <ul class="list-group list-group-flush" v-on:click="selectContact(contact)">
+                        <div class="list-group-item contactListItem">
                             {{ contact.first_name }} {{ contact.last_name }} 
-                            <button type="button" class="btn btn-default btn-xs pull-right" aria-label="Left Align" id="contact.id" @click="showDeleteModal(contact.id)">
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </button> 
-                                <delete-modal v-show="deleteId == contact.id" @close="deleteId = -1">
-                                    <!--
-                                      you can use custom content here to overwrite
-                                      default content
-                                    -->
-                                    <h3 slot="header">{{ contact.id }}</h3>
-                                </delete-modal>
-                            <button type="button" class="btn btn-default btn-xs pull-right" aria-label="Left Align">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </button>
-                            <transition name="fade">
-                                <div v-if="showId == contact.id">
-                                    Company: {{ contact.company_name }} <br>
-                                    Address: {{ contact.address }} <br>
-                                    City: {{ contact.city }} <br>
-                                    State: {{ contact.state }} <br>
-                                    Zip: {{ contact.zip }} <br>
-                                    Phone: {{ contact.phone }} <br>
-                                    Work Phone: {{ contact.work_phone }} <br>
-                                    Email: {{ contact.email }} <br>
-                                    Website: {{ contact.url }} <br>
-                                </div>
-                            </transition>
                         </div>
                     </ul>
                 </div>
+            </div>
+
+            <!-- specific contact information -->
+            <div class="col-md-5 col-md-offset-5 contactInfo">
+                <transition name="fade">
+                    <div v-if="contact.show == true">
+                        <div class="col-md-12 contactDescription">
+                            <div class="contactName"> <h1> {{ contact.first_name }} {{ contact.last_name }} </h1> </div> 
+                        </div>
+                        <div class="col-md-12 contactDescription">
+                            <div class="colOne">Company:</div>
+                            <div class="colTwo">{{ contact.company_name }}</div>
+                            <div class="colOne">Address:</div>
+                            <div class="colTwo">{{ contact.address }}</div>
+                            <div class="colOne">City:</div>
+                            <div class="colTwo">{{ contact.city }}</div>
+                            <div class="colOne">State:</div>
+                            <div class="colTwo">{{ contact.state }}</div>
+                            <div class="colOne">Zip:</div>
+                            <div class="colTwo">{{ contact.zip }}</div>
+                            <div class="colOne">Phone:</div>
+                            <div class="colTwo">{{ contact.phone }}</div>
+                            <div class="colOne">Work Phone:</div>
+                            <div class="colTwo">{{ contact.work_phone }}</div>
+                            <div class="colOne">Email:</div>
+                            <div class="colTwo">{{ contact.email }}</div>
+                            <div class="colOne">Website:</div>
+                            <div class="colTwo">{{ contact.url }}</div>
+                            <div class="colTwo">
+                                <br>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" @click="showUpdateModal = true">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                                <update-modal v-show="showUpdateModal" :contact="contact" @close="showUpdateModal = false"></update-modal>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" @click="showDeleteModal = true">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button> 
+                                <delete-modal v-show="showDeleteModal" @close="showDeleteModal = false">
+                                    <!-- you can use custom content here to overwrite default content -->
+                                    <div slot="body">Are you sure you want to delete <u>{{ contact.first_name }} {{ contact.last_name }}</u> from your contacts?</div>
+                                </delete-modal>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
             </div>
             
         </div>
