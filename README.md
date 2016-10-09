@@ -9,3 +9,136 @@ In app.js, substitute the strings 'apiURL' and 'X-Auth-Token' with the appropria
 
 ## developing
 Run `npm install` and open index.html in browser.
+
+## api to be consumed
+### Request:
+Method: POST <br />
+Url: apiUrl/ <br />
+Required: first_name <br />
+Body:
+{
+  "first_name": "someValue",
+  "last_name": "someValue",
+  "company_name": "someValue",
+  "address": "someValue",
+  "city": "someValue",
+  "state": "someValue",
+  "zip": "12345",
+  "phone": "8034562345",
+  "work_phone": "8034562345",
+  "email": "someValue",
+  "url": "someValue"
+}
+### Response Body
+{
+  "success": true,
+  "new_contact": {
+    "id": 1,
+    "first_name": "someValue",
+    "last_name": "someValue",
+    "company_name": "someValue",
+    "address": "someValue",
+    "city": "someValue",
+    "state": "someValue",
+    "zip": "12345",
+    "phone": "8034562345",
+    "work_phone": "8034562345",
+    "email": "someValue",
+    "url": "someValue",
+    "created_at": dateTime,
+    "updated_at": dateTime
+  }
+}
+### Request
+Method: GET <br />
+Url: apiUrl/ <br />
+Body:
+{
+  "limit": 1,
+  "sort": "first_name"|"last_name"|"address"|"city"|"state"|"zip",
+  "desc": true,
+  "page": 1
+}
+### Response Body
+[
+  {
+    "id": 1,
+    "first_name": "someValue",
+    "last_name": "someValue",
+    "company_name": "someValue",
+    "address": "someValue",
+    "city": "someValue",
+    "state": "someValue",
+    "zip": "12345",
+    "phone": "8034562345",
+    "work_phone": "8034562345",
+    "email": "someValue",
+    "url": "someValue",
+    "created_at": dateTime,
+    "updated_at": dateTime
+  }
+]
+### Request
+Method: GET <br />
+Url: apiURL/{id} <br />
+### Response Body
+{
+  "id": 1,
+  "first_name": "someValue",
+  "last_name": "someValue",
+  "company_name": "someValue",
+  "address": "someValue",
+  "city": "someValue",
+  "state": "someValue",
+  "zip": "12345",
+  "phone": "8034562345",
+  "work_phone": "8034562345",
+  "email": "someValue",
+  "url": "someValue",
+  "created_at": dateTime,
+  "updated_at": dateTime
+}
+### Request
+Method: PUT <br />
+Url: apiURL/{id} <br />
+Required: first_name <br />
+Body: {
+  "first_name": "someValue",
+  "last_name": "someValue",
+  "company_name": "someValue",
+  "address": "someValue",
+  "city": "someValue",
+  "state": "someValue",
+  "zip": "12345",
+  "phone": "8034562345",
+  "work_phone": "8034562345",
+  "email": "someValue",
+  "url": "someValue"
+}
+### Response Body
+{
+  "success": true,
+  "updated_contact": {
+    "id": 1,
+    "first_name": "someValue",
+    "last_name": "someValue",
+    "company_name": "someValue",
+    "address": "someValue",
+    "city": "someValue",
+    "state": "someValue",
+    "zip": "12345",
+    "phone": "8034562345",
+    "work_phone": "8034562345",
+    "email": "someValue",
+    "url": "someValue",
+    "created_at": dateTime,
+    "updated_at": dateTime
+  }
+}
+### Request
+Method: DELETE <br />
+Url: apiURL/{id} <br />
+### Response Body
+{
+  "success": true
+}
