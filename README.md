@@ -11,7 +11,8 @@ In app.js, substitute the strings 'apiURL' and 'X-Auth-Token' with the appropria
 Run `npm install` and open index.html in browser.
 
 ## api to be consumed
-### Request:
+### Add Contact
+#### Request:
 Method: POST <br />
 Url: apiUrl/ <br />
 Required: first_name <br />
@@ -29,7 +30,7 @@ Body:
   "email": "someValue",
   "url": "someValue"
 }
-### Response Body
+#### Response Body
 {
   "success": true,
   "new_contact": {
@@ -49,7 +50,8 @@ Body:
     "updated_at": dateTime
   }
 }
-### Request
+### Get List of Contacts
+#### Request
 Method: GET <br />
 Url: apiUrl/ <br />
 Body:
@@ -59,7 +61,7 @@ Body:
   "desc": true,
   "page": 1
 }
-### Response Body
+#### Response Body
 [
   {
     "id": 1,
@@ -78,10 +80,11 @@ Body:
     "updated_at": dateTime
   }
 ]
-### Request
+### Get Contact
+#### Request
 Method: GET <br />
 Url: apiURL/{id} <br />
-### Response Body
+#### Response Body
 {
   "id": 1,
   "first_name": "someValue",
@@ -98,7 +101,8 @@ Url: apiURL/{id} <br />
   "created_at": dateTime,
   "updated_at": dateTime
 }
-### Request
+### Update Contact
+#### Request
 Method: PUT <br />
 Url: apiURL/{id} <br />
 Required: first_name <br />
@@ -115,7 +119,7 @@ Body: {
   "email": "someValue",
   "url": "someValue"
 }
-### Response Body
+#### Response Body
 {
   "success": true,
   "updated_contact": {
@@ -135,10 +139,11 @@ Body: {
     "updated_at": dateTime
   }
 }
-### Request
+### Delete Contact
+#### Request
 Method: DELETE <br />
 Url: apiURL/{id} <br />
-### Response Body
+#### Response Body
 {
   "success": true
 }
