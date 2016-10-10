@@ -63,8 +63,12 @@
     margin-bottom: 1%
 }
 
+.submitBtn {
+    margin-left: 1%;
+}
+
 .fade-enter-active, .fade-leave-active {
-    transition: opacity .3s
+    transition: opacity .4s
 }
 
 .fade-enter, .fade-leave-active {
@@ -80,7 +84,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, .5);
     display: table;
-    transition: opacity .3s ease;
+    transition: opacity .4s ease;
 }
 
 .modal-wrapper {

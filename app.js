@@ -11,20 +11,26 @@ Vue.component('modal', {
     methods: {
         // api call to add contact
         addContact: function() {
-            body = {"first_name": this.fname,
-                    "last_name": this.lname,
-                    "company_name": this.cname,
-                    "address": this.address,
-                    "city": this.city,
-                    "state": this.state,
-                    "zip": this.zip,
-                    "phone": this.phone,
-                    "work_phone": this.workphone,
-                    "email": this.email,
-                    "url": this.website};
-            this.$http.post(apiURL, body).then((result) => {
-                vm.getContacts();
-            });
+            if (this.fname == null) {
+                // validation
+            } else {
+                body = {"first_name": this.fname,
+                        "last_name": this.lname,
+                        "company_name": this.cname,
+                        "address": this.address,
+                        "city": this.city,
+                        "state": this.state,
+                        "zip": this.zip,
+                        "phone": this.phone,
+                        "work_phone": this.workphone,
+                        "email": this.email,
+                        "url": this.website};
+                this.$http.post(apiURL, body).then((result) => {
+                    vm.getContacts();
+                    console.log(result.body.new_contact);
+                    vm.selectContact(result.body.new_contact);
+                });
+            }
         },
     }
 })
@@ -36,18 +42,22 @@ Vue.component('update-modal', {
     methods: {
         // api call to update contact 
         updateContact: function() {
-            body = {"first_name": this.contact.first_name,
-                    "last_name": this.contact.last_name,
-                    "company_name": this.contact.company_name,
-                    "address": this.contact.address,
-                    "city": this.contact.city,
-                    "state": this.contact.state,
-                    "zip": this.contact.zip,
-                    "phone": this.contact.phone,
-                    "work_phone": this.contact.work_phone,
-                    "email": this.contact.email,
-                    "url": this.contact.url};
-            this.$http.put(apiURL + '/' + vm.contact.id, body).then((response) => {});
+            if (this.contact.first_name == null) {
+
+            } else {
+                body = {"first_name": this.contact.first_name,
+                        "last_name": this.contact.last_name,
+                        "company_name": this.contact.company_name,
+                        "address": this.contact.address,
+                        "city": this.contact.city,
+                        "state": this.contact.state,
+                        "zip": this.contact.zip,
+                        "phone": this.contact.phone,
+                        "work_phone": this.contact.work_phone,
+                        "email": this.contact.email,
+                        "url": this.contact.url};
+                this.$http.put(apiURL + '/' + vm.contact.id, body).then((response) => {});
+            }
         },
     }
 })
@@ -61,6 +71,7 @@ Vue.component('delete-modal', {
             this.$http.delete(apiURL + '/' + vm.contact.id).then((response) => {
                 vm.getContacts();
                 vm.contact.show = false;
+                vm.message = 'Contact successfully deleted.'
             });
         },
     }
@@ -77,6 +88,7 @@ var vm = new Vue({
         showAddModal: false, // toggle add contact modal
         showDeleteModal: false, // toggle delete contact modal
         showUpdateModal: false, // toggle update contact modal
+        message: '',
         contact: { 
             show: false,
             id: null,
@@ -96,6 +108,16 @@ var vm = new Vue({
 
     created: function() {
         this.getContacts();
+    },
+
+    computed: {
+        name: function() {
+            if (this.contact.last_name) {
+                return this.contact.first_name + ' ' + this.contact.last_name
+            } else {
+                return this.contact.first_name
+            }
+        }
     },
 
     watch: {

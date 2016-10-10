@@ -16,7 +16,7 @@
                         <div class="modal-container">
                             <div class="modal-header">
                                 <slot name="header">
-                                    Add Contact
+                                    <h3>Add Contact</h3>
                                 </slot>
                             </div>
                             <div class="modal-body">
@@ -24,7 +24,7 @@
                                     <form >
                                         <div class="form-group row">
                                             <div class="col-xs-4">
-                                                <label for="example-text-input" class="col-form-label">First Name</label>
+                                                <label for="example-text-input" class="col-form-label">First Name (required)</label>
                                                 <input class="form-control" type="text" placeholder="John" v-model="fname">
                                             </div>
                                             <div class="col-xs-4">
@@ -77,7 +77,7 @@
                             </div>
                             <div class="modal-footer">
                                 <slot name="footer">
-                                    <button class="btn btn-default modal-default-button" @click="addContact(); $emit('close')">
+                                    <button class="btn btn-primary modal-default-button submitBtn" @click="addContact(); $emit('close')">
                                         Submit
                                     </button>
                                     <button class="btn btn-default modal-default-button" @click="$emit('close')">
@@ -99,7 +99,7 @@
                         <div class="modal-container">
                             <div class="modal-header">
                                 <slot name="header">
-                                    Update Contact
+                                    <h3>Update Contact</h3>
                                 </slot>
                             </div>
                             <div class="modal-body">
@@ -160,7 +160,7 @@
                             </div>
                             <div class="modal-footer">
                                 <slot name="footer">
-                                    <button class="btn btn-default modal-default-button" @click="updateContact(); $emit('close')">
+                                    <button class="btn btn-primary modal-default-button submitBtn" @click="updateContact(); $emit('close')">
                                         Update
                                     </button>
                                     <button class="btn btn-default modal-default-button" @click="$emit('close')">
@@ -183,7 +183,7 @@
                         <div class="modal-container">
                             <div class="modal-header">
                                 <slot name="header">
-                                    Delete Contact
+                                    <h3>Delete Contact</h3>
                                 </slot>
                             </div>
                             <div class="modal-body">
@@ -192,7 +192,7 @@
                             </div>
                             <div class="modal-footer">
                                 <slot name="footer">
-                                    <button class="btn btn-danger modal-default-button" @click="deleteContact(); $emit('close')">
+                                    <button class="btn btn-danger modal-default-button submitBtn" @click="deleteContact(); $emit('close')">
                                         Delete
                                     </button>
                                     <button class="btn btn-default modal-default-button" @click="$emit('close')">
@@ -242,6 +242,11 @@
             <!-- specific contact information -->
             <div class="col-md-5 col-md-offset-5 contactInfo">
                 <transition name="fade">
+                    <div v-if="contact.show == false">
+                        <div>
+                            <h3>{{ message }}</h3>
+                        </div>
+                    </div>
                     <div v-if="contact.show == true">
                         <div class="col-md-12 contactDescription">
                             <div class="contactName"> <h1> {{ contact.first_name }} {{ contact.last_name }} </h1> </div> 
@@ -276,7 +281,7 @@
                                 </button> 
                                 <delete-modal v-show="showDeleteModal" @close="showDeleteModal = false">
                                     <!-- you can use custom content here to overwrite default content -->
-                                    <div slot="body">Are you sure you want to delete <u>{{ contact.first_name }} {{ contact.last_name }}</u> from your contacts?</div>
+                                    <div slot="body">Are you sure you want to delete <u>{{ name }}</u> from your contacts?</div>
                                 </delete-modal>
                             </div>
                         </div>
