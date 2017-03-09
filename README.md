@@ -62,7 +62,7 @@ Body:
 ```json
 {
   "limit": 1,
-  "sort": "first_name"||"last_name"|"address"|"city"|"state"|"zip",
+  "sort": "first_name"|"last_name"|"address"|"city"|"state"|"zip",
   "desc": true,
   "page": 1
 }
