@@ -56,13 +56,13 @@ Body:
 ```
 ### Get List of Contacts
 #### Request
-Method: GET <br />
-Url: apiUrl/ <br />
+Method: GET    
+Url: apiUrl/    
 Body:
 ```json
 {
   "limit": 1,
-  "sort": "first_name"|"last_name"|"address"|"city"|"state"|"zip",
+  "sort": "first_name"||"last_name"|"address"|"city"|"state"|"zip",
   "desc": true,
   "page": 1
 }
@@ -89,8 +89,8 @@ Body:
 ```
 ### Get Contact
 #### Request
-Method: GET <br />
-Url: apiURL/{id} <br />
+Method: GET    
+Url: apiURL/{id}    
 #### Response Body
 ```json
 {
@@ -112,9 +112,9 @@ Url: apiURL/{id} <br />
 ```
 ### Update Contact
 #### Request
-Method: PUT <br />
-Url: apiURL/{id} <br />
-Required: first_name <br />
+Method: PUT    
+Url: apiURL/{id}    
+Required: first_name    
 Body: {
 ```json
   "first_name": "someValue",
@@ -154,8 +154,8 @@ Body: {
 ```
 ### Delete Contact
 #### Request
-Method: DELETE <br />
-Url: apiURL/{id} <br />
+Method: DELETE    
+Url: apiURL/{id}    
 #### Response Body
 ```json
 {
